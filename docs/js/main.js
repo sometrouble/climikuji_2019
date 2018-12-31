@@ -208,6 +208,7 @@ window.onload = () => {
 		};
 
 		var createGameScene = () => {
+      $.post('https://script.google.com/macros/s/AKfycbwEf0jiuCUTOxCym_pEE2EFNQwtIXqoiWYCOsixyRPbnBSGvdLg/exec')
 
 			var scene = new Scene();
 
@@ -249,7 +250,7 @@ window.onload = () => {
 
 			var player = new Sprite(64, 64);
 			player.image = game.assets['./assets/images/breathframe.png'];
-			player.x = 80;
+			player.x = 40;
 			player.y = HORIZON;
 			scene.addChild(player);
 
@@ -285,10 +286,9 @@ window.onload = () => {
 			scene.addChild(sy4in);
 
 			//---------- ui ----------//
-      var button = new Button("Jump!", jumpTheme, 65, 300);
-      button.font = '4em Arial';
-      button.moveTo(WIDTH / 2 - 150, 900);
-      button.size = 30;
+      var button = new Button("Jump!", jumpTheme, 180, 400);
+      button.font = '12em Arial';
+      button.moveTo(WIDTH / 2 - 200, 820);
       scene.addChild(button);
 
 			button.ontouchstart = () => {
@@ -307,9 +307,7 @@ window.onload = () => {
 
         //クリちゃんが大回転
         player.rotation += 2;
-        if(player.rotation > 30) {
-          player.rotation = 0;
-        }
+        if(player.rotation > 30) player.rotation = 0;
 
         //背景のスクロール
         [bg1, bg2].forEach((bg) => {
@@ -326,12 +324,12 @@ window.onload = () => {
 					if (game.frame % (120 + random[1]) == 0) ryusk.x = WIDTH;
 					if (game.frame % (240 + random[2]) == 0) dotn.x = WIDTH;
 					if (SCOREPOINT > 2000 && game.frame % (1000 + random[3]) == 0) sum.x = WIDTH;
-					if (SCOREPOINT > 5000 && game.frame % (1400+ random[4]) == 0) sy4in.x = WIDTH;
+					if (SCOREPOINT > 5000 && game.frame % (1400 + random[4]) == 0) sy4in.x = WIDTH;
 				}
 
         // 全速前進
         [iru, ryusk, dotn, sum, sy4in].forEach((enemy, index) => {
-          //if(enemy.x > -enemy.width) {
+          if(enemy.x > -enemy.width) {
             //しゃいんだけ速い
             if(index == 4) {
               enemy.x -= SCROLLSPEED * 1.2;
@@ -344,7 +342,7 @@ window.onload = () => {
             } else {
               enemy.x -= SCROLLSPEED;
             }
-          //}
+          }
 
           //当たると死ぬ
           if(player.within(enemy, 28)) {
