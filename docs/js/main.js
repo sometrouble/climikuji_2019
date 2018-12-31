@@ -217,7 +217,7 @@ window.onload = () => {
         r = Math.floor(Math.random() * 30);
       })
 
-      var popflag = 0;
+      var moveflag = false;
 
 			//---------- background ----------//
 			var ui_bg = new Sprite(WIDTH, HEIGHT);
@@ -304,9 +304,14 @@ window.onload = () => {
 				SCOREPOINT = game.frame * 2;
         score.text = "score: " + SCOREPOINT;
 
-        //クリちゃんが大回転
-        player.rotation += 2;
-        if(player.rotation > 30) player.rotation = 0;
+        //クリちゃんがクリクリする
+        if(moveflag) {
+          if(player.rotation < 0) moveflag = false;
+          player.rotation -= 4;
+        } else {
+          if(player.rotation > 30) moveflag = true;
+          player.rotation += 4;
+        }
 
         //背景のスクロール
         [bg1, bg2].forEach((bg) => {
@@ -317,7 +322,6 @@ window.onload = () => {
         });
 
         //ゲーム開始3秒後、前回定まった出現間隔でアスペが出てくる
-        popflag = 0
 				if (game.frame > 180) {
 					if (game.frame % (80 + random[0]) == 0) iru.x = WIDTH;
 					if (game.frame % (120 + random[1]) == 0) ryusk.x = WIDTH;
