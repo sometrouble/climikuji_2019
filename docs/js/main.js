@@ -7,8 +7,8 @@ window.onload = () => {
 	let WIDTH = 640;
 	let HEIGHT = 1136;
 	//内部
-	let SCROLLSPEED = 30;
-	let HORIZON = 330;
+	let SCROLLSPEED = 15;
+	let HORIZON = 440;
 	let VERSION = "0.0.0";
 	//外部
 	let SCOREPOINT = 0;
@@ -19,19 +19,21 @@ window.onload = () => {
 	game.keybind(32, 'a');
 
 	let assets = [
-		'./assets/images/cli_matcho.png',
-		'./assets/images/breathframe.png',
-		'./assets/images/enemyiru.png',
-		'./assets/images/enemyryusk.png',
-		'./assets/images/enemysy4in.png',
-		'./assets/images/town.png',
-		'./assets/images/townbg.png',
-		'./assets/images/town2.png',
-		'./assets/images/town2bg.png',
-		'./assets/images/title.png',
 		'./assets/sounds/rayfami.mp3',
-		'./assets/sounds/jump.mp3',
-		'./assets/images/ui_bg.png',
+    './assets/sounds/jump.mp3',
+    './assets/images/bg_1.png',
+    './assets/images/bg_2.png',
+    './assets/images/breathframe.png',
+    './assets/images/climikuji2k19.png',
+    './assets/images/enemy_dotn.png',
+    './assets/images/enemy_iru.png',
+    './assets/images/enemy_ryuks.png',
+    './assets/images/enemy_sum.png',
+    './assets/images/enemy_sy4in.png',
+    './assets/images/title.png',
+    './assets/images/twitter-card.png',
+    './assets/images/ui_bg.png',
+    './assets/images/ui_bg_light.png',
 	]
 	assets.forEach((item) => {
 		game.preload(item)
@@ -136,24 +138,28 @@ window.onload = () => {
 				'Sy4InRecordsバーチャル部',
 				'CLion',
 				'クソアマ'
-			];
+      ];
+      
+
+      const item = luckyitem[Math.floor(Math.random() * luckyitem.length-1)];
 
 			const rank =
-				SCOREPOINT < 30 ? "凶クリ"
-					: SCOREPOINT < 60 ? "末クリ"
-						: SCOREPOINT < 66 ? "小クリ"
-							: SCOREPOINT < 76 ? "中クリ"
-								: SCOREPOINT < 108 ? "クリ"
-									: SCOREPOINT < 108 ? "クリクリ"
-										: SCOREPOINT < 120 ? "大クリ"
-											: SCOREPOINT < 168 ? "特大クリ"
-												: SCOREPOINT < 200 ? "超特大クリ"
-													: SCOREPOINT < 300 ? "凶悪クリ"
-														: "極悪クリ"
+				SCOREPOINT < 500 ? "敏感クリ"
+			:	SCOREPOINT < 1000 ? "凶クリ"
+      : SCOREPOINT < 2000 ? "末クリ"
+      : SCOREPOINT < 3000 ? "小クリ"
+      : SCOREPOINT < 4000 ? "中クリ"
+      : SCOREPOINT < 5000 ? "クリ"
+      : SCOREPOINT < 6000 ? "クリクリ"
+      : SCOREPOINT < 7000 ? "大クリ"
+      : SCOREPOINT < 8000 ? "特大クリ"
+      : SCOREPOINT < 9000 ? "超特大クリ"
+      : SCOREPOINT < 10000 ? "凶悪クリ"
+      : "極悪クリ"
 
 			const EUC = encodeURIComponent;
 			const LINK = "https://sometrouble.github.io/climikuji_2019/";
-			const message = `🎍クリみくじ2019🎍 - 今年の運クリを占おう❕\nあなたの運勢は${rank}です！ラッキーアイテムは\"${luckyitem[1]}\"`
+			const message = `🎍クリみくじ2019🎍 - 今年の運クリを占おう❕\nあなたの運勢は${rank}です！ラッキーアイテムは\"${item}\"`
 			const hashtag = "クリみくじ,Cli_Omikuji"
 			const URL = `https://twitter.com/intent/tweet?text=${EUC(message)}&hashtags=${EUC(hashtag)}&url=${LINK}`
 
@@ -194,10 +200,8 @@ window.onload = () => {
 
 			scene.addEventListener(Event.TOUCH_START, (e) => {
 				game.replaceScene(createGameScene());
-
 				bgm.play();
 				bgm.src.loop = true;
-
 			});
 
 			return scene;
@@ -207,30 +211,31 @@ window.onload = () => {
 
 			var scene = new Scene();
 
-			var rand1 = Math.floor(Math.random() * 11);
-			var rand2 = Math.floor(Math.random() * 11);
-			var rand3 = Math.floor(Math.random() * 11);
+      //乱数作成
+      var random = new Array(5);
+      random.forEach((r) => {
+        r = Math.floor(Math.random() * 30);
+      })
+
+      var popflag = 0;
 
 			//---------- background ----------//
 			var ui_bg = new Sprite(WIDTH, HEIGHT);
 			ui_bg.image = game.assets['./assets/images/ui_bg.png'];
       scene.addChild(ui_bg);
       
-			var bg = new Sprite(WIDTH, HEIGHT - 110);
-			//bg.image = game.assets['./assets/images/townbg.png'];
-			bg.x = 0;
-			bg.y = 0;
-			scene.addChild(bg);
+      const BG_WIDTH = 900
+      const BG_HEIGHT = 641
 
-			var bg1 = new Sprite(WIDTH + 20, HEIGHT - 110);
-			//bg1.image = game.assets['./assets/images/town.png'];
+			var bg1 = new Sprite(BG_WIDTH, BG_HEIGHT);
+			bg1.image = game.assets['./assets/images/bg_1.png'];
 			bg1.x = 0;
 			bg1.y = 0;
 			scene.addChild(bg1);
 
-			var bg2 = new Sprite(WIDTH + 20, HEIGHT - 110);
-			//bg2.image = game.assets['./assets/images/town.png'];
-			bg2.x = WIDTH;
+			var bg2 = new Sprite(BG_WIDTH, BG_HEIGHT);
+			bg2.image = game.assets['./assets/images/bg_2.png'];
+			bg2.x = BG_WIDTH;
 			bg2.y = 0;
       scene.addChild(bg2);
 
@@ -242,144 +247,121 @@ window.onload = () => {
 			score.font = "normal normal 15px/1.0 monospace";
 			scene.addChild(score);
 
-			var player = new Sprite(32, 32);
+			var player = new Sprite(64, 64);
 			player.image = game.assets['./assets/images/breathframe.png'];
 			player.x = 80;
 			player.y = HORIZON;
 			scene.addChild(player);
 
 			//---------- enemy ----------//
-			var ryusk = new Sprite(32, 32);
-			ryusk.image = game.assets['./assets/images/enemyryusk.png'];
+			var ryusk = new Sprite(64, 64);
+			ryusk.image = game.assets['./assets/images/enemy_ryuks.png'];
 			ryusk.x = -ryusk.width;
-			ryusk.y = HORIZON - 32;
+			ryusk.y = HORIZON - 64;
 			scene.addChild(ryusk);
 
-			var iru = new Sprite(32, 32);
-			iru.image = game.assets['./assets/images/enemyiru.png'];
+			var iru = new Sprite(64, 64);
+			iru.image = game.assets['./assets/images/enemy_iru.png'];
 			iru.x = -iru.width;
 			iru.y = HORIZON;
-			scene.addChild(iru);
+      scene.addChild(iru);
+      
+			var dotn = new Sprite(64, 64);
+			dotn.image = game.assets['./assets/images/enemy_dotn.png'];
+			dotn.x = -dotn.width;
+			dotn.y = HORIZON;
+			scene.addChild(dotn);
+      
+      var sum = new Sprite(64, 64);
+			sum.image = game.assets['./assets/images/enemy_sum.png'];
+			sum.x = -sum.width;
+			sum.y = HORIZON;
+			scene.addChild(sum);
 
-			var sy4in = new Sprite(64, 32);
-			sy4in.image = game.assets['./assets/images/enemysy4in.png'];
+			var sy4in = new Sprite(128, 64);
+			sy4in.image = game.assets['./assets/images/enemy_sy4in.png'];
 			sy4in.x = -sy4in.width;
-			sy4in.y = HORIZON - 32;
+			sy4in.y = HORIZON - 100;
 			scene.addChild(sy4in);
-
 
 			//---------- ui ----------//
       var button = new Button("Jump!", jumpTheme, 65, 300);
       button.font = '4em Arial';
-      button.moveTo(WIDTH / 2 - 150, 800);
+      button.moveTo(WIDTH / 2 - 150, 900);
       button.size = 30;
       scene.addChild(button);
 
 			button.ontouchstart = () => {
 				if (player.y == HORIZON) {
 					player.frame = 0;
-					player.tl.moveBy(0, -60, 6, enchant.Easing.CUBIC_EASEOUT)
-						.moveBy(0, 60, 6, enchant.Easing.CUBIC_EASEIN);
+					player.tl.moveBy(0, -150, 12, enchant.Easing.CUBIC_EASEOUT)
+						.moveBy(0, 150, 12, enchant.Easing.CUBIC_EASEIN);
 					jumpse.play();
 				}
 			}
 
-			//var escbutton = new Button("Back", jumpTheme, 65, 100);
-      //escbutton.font = '4em Arial';
-			//escbutton.moveTo(10, 900);
-			//scene.addChild(escbutton);
-			//escbutton.ontouchstart = function () {
-			//	location.reload();
-			//}
-
-			scene.addEventListener(Event.ENTER_FRAME, function () {
-
-				//---------- initialize ----------//
+      //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=ゲーム内ループ-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+			scene.addEventListener(Event.ENTER_FRAME, () => {
 				SCOREPOINT = game.frame * 2;
+        score.text = "score: " + SCOREPOINT;
 
-				score.text = "score: " + SCOREPOINT;
-				//TIME++;
-				enemies = [];
+        //クリちゃんが大回転
+        player.rotation += 2;
+        if(player.rotation > 30) {
+          player.rotation = 0;
+        }
 
-				player.frame++;
-				if (player.frane >= 2) {
-					player.frame = 0;
+        //背景のスクロール
+        [bg1, bg2].forEach((bg) => {
+          bg.x -= SCROLLSPEED;
+          if(bg.x <= -BG_WIDTH) {
+            bg.x = BG_WIDTH
+          }
+        });
+
+        //ゲーム開始3秒後、前回定まった出現間隔でアスペが出てくる
+        popflag = 0
+				if (game.frame > 180) {
+					if (game.frame % (80 + random[0]) == 0) iru.x = WIDTH;
+					if (game.frame % (120 + random[1]) == 0) ryusk.x = WIDTH;
+					if (game.frame % (240 + random[2]) == 0) dotn.x = WIDTH;
+					if (SCOREPOINT > 5000 && game.frame % (1000 + random[3]) == 0) sum.x = WIDTH;
+					if (SCOREPOINT > 10000 && game.frame % (1400+ random[4]) == 0) sy4in.x = WIDTH;
 				}
 
-				bg1.x -= SCROLLSPEED;
-				bg2.x -= SCROLLSPEED;
+        // 全速前進
+        [iru, ryusk, dotn, sum, sy4in].forEach((enemy, index) => {
+          //if(enemy.x > -enemy.width) {
+            //しゃいんだけ速い
+            if(index == 4) {
+              enemy.x -= SCROLLSPEED * 1.2;
+            
+            //とらさむは遅い
+            } else if (index == 3) {
+              enemy.x -= SCROLLSPEED * 0.8;
+            
+            //ほかは一緒
+            } else {
+              enemy.x -= SCROLLSPEED;
+            }
+          //}
 
-				if (bg1.x <= -WIDTH) {
-					bg1.x = WIDTH;
-				}
+          //当たると死ぬ
+          if(player.within(enemy, 28)) {
+            game.pushScene(createGameoverScene());
+          }
+        });
 
-				if (bg2.x <= -WIDTH) {
-					bg2.x = WIDTH;
-				}
-
-				//---------- game ----------//
-				if (game.frame > 50) {
-
-					if (game.frame % (30 + rand1) == 0) {
-						iru.x = WIDTH;
-					}
-					if (game.frame % (40 + rand2) == 0) {
-						ryusk.x = WIDTH;
-					}
-					if (SCOREPOINT > 2000 && game.frame % (182 + rand3) == 0) {
-						sy4in.x = WIDTH;
-					}
-				}
-
-				if (iru.x > -iru.width) {
-					iru.x -= SCROLLSPEED;
-				}
-				if (ryusk.x > -ryusk.width) {
-					ryusk.x -= SCROLLSPEED;
-				}
-				if (sy4in.x > -sy4in.width) {
-					sy4in.x -= SCROLLSPEED * 1.2;
-				}
-
-				/*
-				if (game.frame > (FPS*4) && SCOREPOINT < 10000){
-					
-					popenemy();
-					
-				}
-				*/
-
-				if (player.within(ryusk, 28) || player.within(iru, 30) || player.within(sy4in, 30)) {
-					game.pushScene(createGameoverScene());
-				}
-
-
-				//---------- randomize ----------//
-
-				if (game.frame % 200 == 0 && iru.x < -iru.width) {
-					rand1 = Math.floor(Math.random() * 11);
-				}
-
-				if (game.frame % 200 == 0 && ryusk.x < -ryusk.width) {
-					rand2 = Math.floor(Math.random() * 11);
-				}
-
-				rand3 = Math.floor(Math.random() * 11);
-
-
-
-				//testlabel.text = testvariable;
+        //出現間隔を定める
+        [iru, ryusk, dotn, sum, sy4in].forEach((enemy, index) => {
+          if(enemy.x <= -enemy.width) {
+            random[index] = Math.floor(Math.random() * 30);
+          }
+        });
 
 			});
-
-			//scene.addEventListener(Event.TOUCH_END, function (e) {
-			//	//game.pushScene(createGameoverScene());
-			//});
-
 			return scene;
 		}
-
-
 
 		var createGameoverScene = () => {
 			var scene = new Scene();
