@@ -325,8 +325,8 @@ window.onload = () => {
 					if (game.frame % (80 + random[0]) == 0) iru.x = WIDTH;
 					if (game.frame % (120 + random[1]) == 0) ryusk.x = WIDTH;
 					if (game.frame % (240 + random[2]) == 0) dotn.x = WIDTH;
-					if (SCOREPOINT > 5000 && game.frame % (1000 + random[3]) == 0) sum.x = WIDTH;
-					if (SCOREPOINT > 10000 && game.frame % (1400+ random[4]) == 0) sy4in.x = WIDTH;
+					if (SCOREPOINT > 2000 && game.frame % (1000 + random[3]) == 0) sum.x = WIDTH;
+					if (SCOREPOINT > 5000 && game.frame % (1400+ random[4]) == 0) sy4in.x = WIDTH;
 				}
 
         // 全速前進
