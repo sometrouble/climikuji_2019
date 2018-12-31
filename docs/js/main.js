@@ -24,16 +24,16 @@ window.onload = () => {
     './assets/images/bg_1.png',
     './assets/images/bg_2.png',
     './assets/images/breathframe.png',
-    './assets/images/climikuji2k19.png',
+    //'./assets/images/climikuji2k19.png',
     './assets/images/enemy_dotn.png',
     './assets/images/enemy_iru.png',
     './assets/images/enemy_ryuks.png',
     './assets/images/enemy_sum.png',
     './assets/images/enemy_sy4in.png',
     './assets/images/title.png',
-    './assets/images/twitter-card.png',
+    //'./assets/images/twitter-card.png',
     './assets/images/ui_bg.png',
-    './assets/images/ui_bg_light.png',
+    //'./assets/images/ui_bg_light.png',
 	]
 	assets.forEach((item) => {
 		game.preload(item)
@@ -59,8 +59,8 @@ window.onload = () => {
         color: '#FFF',
 				background: {
 					type: 'linear-gradient',
-					start: '#ff7f7f',
-          end: '#ff7f7f'
+					start: '#dc143c',
+          end: '#dc143c'
 				},
 				border: {
 					color: '#66d0ff',
@@ -140,8 +140,7 @@ window.onload = () => {
 				'クソアマ'
       ];
       
-
-      const item = luckyitem[Math.floor(Math.random() * luckyitem.length-1)];
+      const item = luckyitem[Math.floor(Math.random() * luckyitem.length) -1];
 
 			const rank =
 				SCOREPOINT < 500 ? "敏感クリ"
@@ -286,7 +285,7 @@ window.onload = () => {
 			scene.addChild(sy4in);
 
 			//---------- ui ----------//
-      var button = new Button("Jump!", jumpTheme, 180, 400);
+      var button = new Button("Jump", jumpTheme, 180, 400);
       button.font = '12em Arial';
       button.moveTo(WIDTH / 2 - 200, 820);
       scene.addChild(button);
